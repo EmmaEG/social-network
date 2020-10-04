@@ -24,19 +24,35 @@ function saveUser(req, res) {
         user.role = 'ROLE_USER';
         user.image = null;
 
-        //el null es para evitar que siga cifrando ya que x defecto es suficient
-        bcrypt.hash(params.password, null, null, (err, hash) => {
-            user.password = hash;
+        //usuario duplicado, tenemos que usar el operador logico or que incluye mongodb, para ello
+        //genero un array, dentro de este estan las condiciones a evaluar
+        User.find({
+            $or: [
+                { email: user.email.toLowerCase() },
+                { nick: user.nick.toLowerCase() }
+            ]
+        }).exec((err, users) => {
+            if (err) return res.status(500).send({ message: 'Error en la petición se usuarios' });
 
-            user.save((err, userStored) => { //guardamos el user, con el metodo de mongoose. Al param userStored le ponemos poner cualquier nombre
-                if (err) return res.status(500).send({ message: 'Error al guardar el usuario' });
-                if (userStored) {
-                    res.status(200).send({ user: userStored });
-                } else {
-                    res.status(404).send({ message: 'No se ha registrado el usuario' });
-                }
-            });
+            if (users && users.length >= 1) {
+                return res.status(200).send({ message: 'El usuario ya existe' });
+            } else {
+                //el null es para evitar que siga cifrando ya que x defecto es suficient
+                bcrypt.hash(params.password, null, null, (err, hash) => {
+                    user.password = hash;
+
+                    user.save((err, userStored) => { //guardamos el user, con el metodo de mongoose. Al param userStored le ponemos poner cualquier nombre
+                        if (err) return res.status(500).send({ message: 'Error al guardar el usuario' });
+                        if (userStored) {
+                            res.status(200).send({ user: userStored });
+                        } else {
+                            res.status(404).send({ message: 'No se ha registrado el usuario' });
+                        }
+                    });
+                });
+            }
         });
+
     } else {
         res.status(200).send({ message: 'Complete todos los campos del usuario' });
     }
