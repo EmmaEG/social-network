@@ -3,20 +3,20 @@
 var bcrypt = require('bcrypt-nodejs');
 var User = require('../models/user');
 
-function home(req, res) {
+function home(req, res){
     res.status(200).send({ message: 'Hola mundo desde el servidor de Node Js' });
 }
 
-function pruebas(req, res) {
+function pruebas(req, res){
     console.log(req.body);
     res.status(200).send({ message: 'Acción de prueba desde el servidor de Node Js' });
 }
 
-function saveUser(req, res) {
+function saveUser(req, res){
     var params = req.body;
     var user = new User();
 
-    if (params.name && params.surname && params.nick && params.email && params.password) {
+    if(params.name && params.surname && params.nick && params.email && params.password){
         user.name = params.name;
         user.surname = params.surname;
         user.nick = params.nick;
@@ -32,35 +32,59 @@ function saveUser(req, res) {
                 { nick: user.nick.toLowerCase() }
             ]
         }).exec((err, users) => {
-            if (err) return res.status(500).send({ message: 'Error en la petición se usuarios' });
+            if(err) return res.status(500).send({ message: 'Error en la petición se usuarios' });
 
-            if (users && users.length >= 1) {
+            if(users && users.length >= 1){
                 return res.status(200).send({ message: 'El usuario ya existe' });
-            } else {
+            }else{
                 //el null es para evitar que siga cifrando ya que x defecto es suficient
                 bcrypt.hash(params.password, null, null, (err, hash) => {
                     user.password = hash;
 
                     user.save((err, userStored) => { //guardamos el user, con el metodo de mongoose. Al param userStored le ponemos poner cualquier nombre
-                        if (err) return res.status(500).send({ message: 'Error al guardar el usuario' });
-                        if (userStored) {
+                        if(err) return res.status(500).send({ message: 'Error al guardar el usuario' });
+                        if(userStored){
                             res.status(200).send({ user: userStored });
-                        } else {
+                        }else{
                             res.status(404).send({ message: 'No se ha registrado el usuario' });
                         }
                     });
                 });
             }
         });
-
-    } else {
+    }else{
         res.status(200).send({ message: 'Complete todos los campos del usuario' });
     }
+}
+
+function loginUser(req, res){
+    var params = req.body;
+    var email = params.email;
+    var password = params.password;
+
+    User.findOne({email: email}, (err, user) => {
+        if(err) return res.status(500).send({message: 'Error en la petición'});
+        
+        if(user){
+            bcrypt.compare(password, user.password, (err, check) => {
+                if(check){
+                    //devolvemos los datos del usuario
+                    user.password = undefined;
+                    return res.status(200).send({user});
+                }else{
+                    return res.status(404).send({message: 'No se ha podido identificar'});
+                }
+            });
+        }else{
+            return res.status(404).send({message: 'No se ha podido identificar'});
+        }
+    });
 }
 
 //exportamos los metodos como objetos para luego poder acceder al que me interese
 module.exports = {
     home,
     pruebas,
-    saveUser
+    saveUser,
+    loginUser
 }

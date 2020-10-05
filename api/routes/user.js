@@ -9,6 +9,8 @@ var api = express.Router(); //cargamos el router de express para acceder a los m
 api.get('/home', UserController.home);
 api.get('/pruebas', UserController.pruebas);
 api.post('/register', UserController.saveUser);
+api.post('/login', UserController.loginUser);
+
 
 module.exports = api;
 
