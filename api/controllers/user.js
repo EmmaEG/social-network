@@ -88,10 +88,26 @@ function loginUser(req, res) {
     });
 }
 
+function getUser(req, res) {
+    var userId = req.params.id;
+
+    User.findById(userId, (err, user) => {
+        if (err) return res.status(500).send({message: 'Error en la petición'});
+
+        if (!user) return res.status(404).send({message: 'El usuario no existe'});
+
+        return res.status(200).send({user});
+    });
+}
+
+
 //exportamos los metodos como objetos para luego poder acceder al que me interese
 module.exports = {
     home,
     pruebas,
     saveUser,
-    loginUser
+    loginUser,
+    getUser
 }
+
+//cuando nos llegan datos por la url usamos params, cuando nos llegan datos por Post or Put usamos body
