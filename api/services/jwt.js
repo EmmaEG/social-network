@@ -4,11 +4,11 @@ var jwt = require('jwt-simple');
 var moment = require('moment');
 var secret = 'secret_key_for_my_social_network_application';
 
-exports.createToken = function(user){
+exports.createToken = function (user) {
     var payload = {
         sub: user._id,
         name: user.name,
-        surname : user.surname,
+        surname: user.surname,
         nick: user.nick,
         email: user.email,
         role: user.role,
