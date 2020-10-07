@@ -7,6 +7,7 @@ var port = 3800;
 
 //para conectarnos a mongodb tenems que utlizar las promesas, vamos a hacer la conexion mediante un metodo
 //de promesas
+mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/social-network', { useNewUrlParser:true, useUnifiedTopology: true })
         .then(() => {
