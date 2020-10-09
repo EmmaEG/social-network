@@ -125,6 +125,26 @@ function getUsers(req, res) {
     });
 }
 
+function updateUser(req, res) {
+    var userId = req.params.id; //recogemos el id por la url del user a modificar
+    var update = req.body; //conseguimos el objeto que recibimos por la req con los atributos a modificar
+    
+    delete update.password; //borramos la propiedad password para tenerla en un metodo separado
+
+    //verificamos que el propio usuario de su cuenta quiera modificar sus datos
+    if (userId != req.user.sub) {
+        return res.status(500).send({message: 'No tiene permiso para modificar'});
+    }
+
+    User.findByIdAndUpdate(userId, update, {new:true}, (err, userUpdated) => { //*
+        if (err) return res.status(500).send({message: 'Error en la petición'});
+
+        if (!userUpdated) return res.status(404).send({message: 'No se ha podido actualizar el usuario'});
+
+        return res.status(200).send({user: userUpdated});
+    });
+}
+
 
 //exportamos los metodos como objetos para luego poder acceder al que me interese
 module.exports = {
@@ -133,7 +153,9 @@ module.exports = {
     saveUser,
     loginUser,
     getUser,
-    getUsers
+    getUsers,
+    updateUser
 }
 
 //cuando nos llegan datos por la url usamos params, cuando nos llegan datos por Post or Put usamos body
+//* el new:true es para que mongoose me devuelva el objeto actualizado, sino me devuelve el obj anterior
