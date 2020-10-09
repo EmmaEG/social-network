@@ -2,6 +2,9 @@
 //4
 var bcrypt = require('bcrypt-nodejs');
 var mongoosePaginate = require('mongoose-pagination');
+var fs = require('fs'); //file system de node para trabajar con archivos
+var path = require('path'); //nos permite trabajar con ruta de ficheros
+
 
 var User = require('../models/user');
 var jwt = require('../services/jwt');
@@ -145,6 +148,54 @@ function updateUser(req, res) {
     });
 }
 
+function uploadImage(req, res) {
+    var userId = req.params.id; //recogemos el id por la url del user a modificar
+        
+    if(req.files) { //si existe un fichero
+        var file_path = req.files.image.path; //path del campo image q enviamos por post
+        console.log(file_path);
+
+        var file_split =  file_path.split('\\');
+        console.log(file_split);
+
+        var file_name = file_split[2];
+        console.log(file_name);
+
+        var ext_split = file_name.split('\.'); //cortamos la extension del archivo
+        console.log(ext_split);
+
+        var file_ext = ext_split[1]; //guardamos la extension del fichero
+        console.log(file_ext);
+
+        //verificamos que el propio usuario de su cuenta quiera modificar sus datos
+        if (userId != req.user.sub) {
+            return removeFilesToUpload(res, file_path, 'No tiene permiso para modificar');
+        }
+
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gi') {
+            //Actualizamos el archivo de usuario
+            User.findByIdAndUpdate(userId, {image: file_name}, {new:true}, (err, userUpdated) => {
+                if (err) return res.status(500).send({message: 'Error en la petición'});
+
+                if (!userUpdated) return res.status(404).send({message: 'No se ha podido actualizar el usuario'});
+
+                return res.status(200).send({user: userUpdated});
+            });
+
+        } else {
+            return removeFilesToUpload(res, file_path, 'Extension no válida');
+        }
+    } else {
+        return res.status(200).send({message: 'Nose han subido archivos'});
+    }
+}
+
+function removeFilesToUpload(res, file_path, message) {
+    fs.unlink(file_path, (err) => { //borramos el archivo
+        return res.status(200).send({message: message});
+    });
+}
+
 
 //exportamos los metodos como objetos para luego poder acceder al que me interese
 module.exports = {
@@ -154,8 +205,10 @@ module.exports = {
     loginUser,
     getUser,
     getUsers,
-    updateUser
+    updateUser,
+    uploadImage
 }
 
 //cuando nos llegan datos por la url usamos params, cuando nos llegan datos por Post or Put usamos body
+//en las req nos llegan params y en las res enviamos la respuesta
 //* el new:true es para que mongoose me devuelva el objeto actualizado, sino me devuelve el obj anterior
