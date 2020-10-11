@@ -196,6 +196,19 @@ function removeFilesToUpload(res, file_path, message) {
     });
 }
 
+function getImageFile(req, res) {
+    var image_file = req.params.imageFile; //imageFile es el param que recibe por url
+    var path_file = './uploads/users/' + image_file;
+
+    fs.exists(path_file, (exists) => {
+        if (exists) {
+            res.sendFile(path.resolve(path_file));
+        } else {
+            res.status(200).send({message: 'No existe la imagen'});
+        }
+    });
+}
+
 
 //exportamos los metodos como objetos para luego poder acceder al que me interese
 module.exports = {
@@ -206,7 +219,8 @@ module.exports = {
     getUser,
     getUsers,
     updateUser,
-    uploadImage
+    uploadImage,
+    getImageFile
 }
 
 //cuando nos llegan datos por la url usamos params, cuando nos llegan datos por Post or Put usamos body
