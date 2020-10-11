@@ -10,6 +10,8 @@ var app = express(); //hacemos una instancia de express
 
 //cargar rutas 6
 var user_routes = require('./routes/user');
+var follow_routes = require('./routes/follow');
+
 
 //middlewares (es un metodo que se ejecuta antes de que entre en accion un controlador)
 app.use(bodyParser.urlencoded({extended:false})); //conf necesaria para bodyParser
@@ -19,6 +21,8 @@ app.use(bodyParser.json()); //me convierte los datos de una peticion a Obj Json
 
 //rutas - sobreescribimos las rutas para que se ejecute el middleware
 app.use('/api', user_routes);
+app.use('/api', follow_routes);
+
 
 
 
