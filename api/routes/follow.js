@@ -6,5 +6,7 @@ var api = express.Router(); //cargamos el router de express para acceder a los m
 var md_auth = require('../middlewares/auth');
 
 api.post('/follow', md_auth.ensureAuth, FollowController.saveFollow);
+api.delete('/follow/:id', md_auth.ensureAuth, FollowController.deleteFollow);
+
 
 module.exports = api;

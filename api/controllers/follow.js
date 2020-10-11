@@ -6,11 +6,11 @@ var User = require('../models/user');
 var Follow = require('../models/follow');
 
 function saveFollow(req, res) {
-    var params = req.body;
+    var params = req.body; //recogemos los parametros de la peticion
 
-    var follow = new Follow();
-    follow.user = req.user.sub;
-    follow.followed = params.followed;
+    var follow = new Follow(); //creamos el objeto para setear las propiedades
+    follow.user = req.user.sub; //* guardamos el usuario identificado
+    follow.followed = params.followed; //guardamos el usuario que seguimos
 
     follow.save((err, followStored) => {
         if (err) return res.status(500).send({message: 'Error al guardar el seguimiento'});
@@ -22,6 +22,22 @@ function saveFollow(req, res) {
 
 }
 
-module.exports = {
-    saveFollow
+function deleteFollow(req, res) {
+    var userId = req.user.sub;
+    var followId = req.params.id; //el usuario que estamos siguiendo
+
+    Follow.find({'user': userId, 'followed':followId}).remove(err => {
+        if (err) return res.status(500).send({message: 'Error al dejar de seguir'});
+
+        return res.status(200).send({message: 'El follow se ha eliminado'});
+    });
 }
+
+module.exports = {
+    saveFollow,
+    deleteFollow
+}
+
+// * en la apropiedad user del objeto req adjunté a la hora de hacerr la autenticación un objeto con toodo
+// el usuario que está logueado (en el middleware de autenticacion) podemos ver que al final seteamos el
+// objeto user en el payload que decodifica el usuario y asíi guardo el usuario identificado
