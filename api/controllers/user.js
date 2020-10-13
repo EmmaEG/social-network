@@ -1,7 +1,7 @@
 'use strict'
 //4
 var bcrypt = require('bcrypt-nodejs');
-var mongoosePaginate = require('mongoose-pagination');
+var mongoosePaginate = require('../libraries/pagination');
 var fs = require('fs'); //file system de node para trabajar con archivos
 var path = require('path'); //nos permite trabajar con ruta de ficheros
 

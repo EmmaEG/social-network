@@ -9,7 +9,10 @@ var port = 3800;
 //de promesas
 mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/social-network', { useNewUrlParser:true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/social-network', { 
+        useNewUrlParser:true,
+        useUnifiedTopology: true
+        })
         .then(() => {
             console.log("La conexión a la db se realizó correctamente");
             //finalizo la creacion del servidor
