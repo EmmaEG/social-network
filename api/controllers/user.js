@@ -125,7 +125,6 @@ async function followThisUser(identity_user_id, user_id) {
     });
  
     var followed = await Follow.findOne({ "user": user_id, "followed": identity_user_id }).exec().then((follow) => {
-        console.log(follow);
         return follow;
     }).catch((err) => {
         return handleError(err);
@@ -153,12 +152,85 @@ function getUsers(req, res) {
         
         if (!users) return res.status(404).send({message: 'No hay usuarios disponibles'});
 
-        return res.status(200).send({
-            users,
-            total,
-            pages: Math.ceil(total/itemsPerPage)
-        });        
+        followUserIds(identity_user_id).then((value) => {
+                        
+            return res.status(200).send({
+                users,
+                users_following: value.following,
+                users_follow_me: value.following,
+                total,
+                pages: Math.ceil(total/itemsPerPage)
+            });   
+        });             
     });
+}
+
+// el await es para esperar el return_ el resultado que nos devuelve y lo guarde en la varieble
+//con select puedo seleccionar que mostrar (con el 0 lo excluyo)
+async function followUserIds(user_id) {
+    //usuarios seguidos
+    var following = await Follow.find({"user": user_id}).select({'_id':0, '__v':0, 'user':0}).exec().then((follows) => {
+        return follows;
+    }).catch((err) => {
+        return handleError(err);
+    });
+
+    //usuarios que nos siguen
+    var followed = await Follow.find({"followed": user_id}).select({'_id':0, '__v':0, 'followed':0}).exec().then((follows) => {
+        return follows;
+    }).catch((err) => {
+        return handleError(err);
+    });
+
+        //procesar following ids
+        var following_clean = [];
+
+        following.forEach((follow) => {
+            following_clean.push(follow.followed); //consigo un array limpio con ids
+        });
+
+        //procesar followed ids
+        var followed_clean = [];
+
+        followed.forEach((follow) => {
+            followed_clean.push(follow.user); //consigo un array limpio con ids
+        });
+
+        return {
+            following: following_clean,
+            followed: followed_clean
+        }
+}
+
+function getCounters(req, res) {
+    var userId = req.user.sub;
+
+    if(req.params.id) {
+        userId = req.params.id;
+    }
+
+    getCountFollow(userId).then((value) => {
+        return res.status(200).send(value);
+    });
+}
+
+async function getCountFollow(user_id) {
+    var following = await Follow.count({"user": user_id}).exec().then((count) => {
+        return count;
+        }).catch((err) => {
+            return handleError(err);
+        });
+    
+    var followed = await Follow.count({"followed": user_id}).exec().then((count) => {
+        return count;
+        }).catch((err) => {
+            return handleError(err);
+        });
+
+        return {
+            following: following,
+            followed: followed
+        }
 }
 
 function updateUser(req, res) {
@@ -251,6 +323,7 @@ module.exports = {
     loginUser,
     getUser,
     getUsers,
+    getCounters,
     updateUser,
     uploadImage,
     getImageFile
