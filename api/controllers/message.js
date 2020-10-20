@@ -6,6 +6,7 @@ var mongoosePaginate = require('../libraries/pagination');
 var User = require('../models/user');
 var Follow = require('../models/follow');
 var Message = require('../models/message');
+const message = require('../models/message');
 
 function probando(req, res) {
     res.status(200).send({message: 'Hola desde los md'});
@@ -23,6 +24,7 @@ function saveMessage(req, res) {
     message.receiver = params.receiver;
     message.text = params.text;
     message.created_at = moment().unix();
+    message.viewed = 'false';
 
     message.save((err, messageStored) => {
         if (err) return res.status(500).send({message: 'Error en la petición'});
@@ -78,10 +80,36 @@ function getEmmitMessages(req, res) {
     });
 }
 
+//mensajes no leidos
+function getUnViewedMessages(req, res) {
+    var userId = req.user.sub;
+
+    //si reciever is userId and viewed is false, then.....
+    Message.count({receiver: userId, viewed: 'false'}).exec((err, count) => {
+        if (err) return res.status(500).send({message: 'Error en la petición'});
+
+        return res.status(200).send({'unviewed': count});
+    });
+}
+
+//marcar como leídos los mensajes
+function setViewedMessages(req, res) {
+    var userId = req.user.sub; 
+    //el parametro viewed: true es la condicion que vamos a cambiar en el obj
+    //con el multi=true actualizamos todos los documentos, sino actualiza solo uno
+    Message.update({receiver: userId, viewed: 'false'}, {viewed: 'true'}, {"multi":true}, (err, messageUpdated) => {
+        if (err) return res.status(500).send({message: 'Error en la petición'});
+        
+        return res.status(200).send({messages: messageUpdated});
+    });
+}
+
 
 module.exports = {
     probando,
     saveMessage,
     getReceivedMessages,
-    getEmmitMessages    
+    getEmmitMessages,
+    getUnViewedMessages,
+    setViewedMessages
 }

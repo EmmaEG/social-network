@@ -9,6 +9,10 @@ api.get('/probando-md', md_auth.ensureAuth, MessageControler.probando);
 api.post('/message', md_auth.ensureAuth, MessageControler.saveMessage);
 api.get('/my-messages/:page?', md_auth.ensureAuth, MessageControler.getReceivedMessages);
 api.get('/messages/:page?', md_auth.ensureAuth, MessageControler.getEmmitMessages);
+api.get('/unviewed-messages', md_auth.ensureAuth, MessageControler.getUnViewedMessages);
+api.get('/set-viewed-messages', md_auth.ensureAuth, MessageControler.setViewedMessages);
+
+
 
 
 
