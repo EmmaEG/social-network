@@ -11,6 +11,77 @@ function probando(req, res) {
     res.status(200).send({message: 'Hola desde los md'});
 }
 
+function saveMessage(req, res) {
+    var params = req.body;
+
+    if (!params.text || !params.receiver) {
+        return res.status(200).send({message: 'Envia los datos necesarios'});
+    }
+
+    var message = new Message();
+    message.emitter = req.user.sub;
+    message.receiver = params.receiver;
+    message.text = params.text;
+    message.created_at = moment().unix();
+
+    message.save((err, messageStored) => {
+        if (err) return res.status(500).send({message: 'Error en la petición'});
+        if (!messageStored) return res.status(404).send({message: 'Error al enviar el mensaje'});
+
+        return res.status(200).send({message: messageStored});
+    });
+}
+
+//mensajes recibidos
+function getReceivedMessages(req, res) {
+    var userId = req.user.sub;
+
+    var page = 1;
+    if (req.params.page) {
+        var page = req.params.page;
+    }
+
+    var itemsPerPage = 4;
+    // puedo pasar en el populate los campos que quiero recibir
+    Message.find({receiver: userId}).populate('emitter', 'name surname image nick _id').paginate(page, itemsPerPage, (err, messages, total) => {
+        if (err) return res.status(500).send({message: 'Error en la petición'});
+        if (!messages) return res.status(404).send({message: 'No hay mensajes'});
+
+        return res.status(200).send({
+            total: total,
+            pages: Math.ceil(total/itemsPerPage),
+            messages
+        });
+    });
+}
+
+//mensajes enviados
+function getEmmitMessages(req, res) {
+    var userId = req.user.sub;
+
+    var page = 1;
+    if (req.params.page) {
+        var page = req.params.page;
+    }
+
+    var itemsPerPage = 4;
+    // puedo pasar en el populate los campos que quiero recibir
+    Message.find({emitter: userId}).populate('emitter receiver', 'name surname image nick _id').paginate(page, itemsPerPage, (err, messages, total) => {
+        if (err) return res.status(500).send({message: 'Error en la petición'});
+        if (!messages) return res.status(404).send({message: 'No hay mensajes'});
+
+        return res.status(200).send({
+            total: total,
+            pages: Math.ceil(total/itemsPerPage),
+            messages
+        });
+    });
+}
+
+
 module.exports = {
-    probando
+    probando,
+    saveMessage,
+    getReceivedMessages,
+    getEmmitMessages    
 }
