@@ -19,7 +19,17 @@ var message_routes = require('./routes/message');
 app.use(bodyParser.urlencoded({extended:false})); //conf necesaria para bodyParser
 app.use(bodyParser.json()); //me convierte los datos de una peticion a Obj Json
 
-//cors
+//cors configuracion de cabecerass http (es un middleware que se genera automaticamente en cada peticion)
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+ 
+    next();
+});
+
+
 
 //rutas - sobreescribimos las rutas para que se ejecute el middleware
 app.use('/api', user_routes);
