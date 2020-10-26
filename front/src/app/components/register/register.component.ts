@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   public submitted = false;
   public title: string;
   public user: User;
+  public status: string;
 
 
   constructor( // configuramos las propiedades del router para tenerlas definidas en la clas
@@ -36,20 +37,19 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       const value = this.registerForm.value;
       this.user = new User(value._id, value.name, value.surname, value.nick, value.email, value.password, value.role, value.image);
-      this.userService.register(this.user).subscribe(
+      this.userService.register(this.user).subscribe( // me subscribo al servicio y capturo el result de la api
         response => {
           if (response.user && response.user._id) {
-            console.log(response.user);
-          }
+              this.status = 'success';
+              this.registerForm.reset();
+            } else {
+              this.status = 'error';
+            }
         },
         error => {
           console.log(error);
         }
       );
-      /*
-      .then(() => {
-        this.router.navigate(['/auth/login']);
-      });*/
     }
   }
 
@@ -60,11 +60,12 @@ export class RegisterComponent implements OnInit {
       surname: ['', Validators.required],
       nick: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern('(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,30}$)')]],
       role: ['ROLE_USER'],
       image: ['']
     });
   }
+
 
 }
 

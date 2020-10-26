@@ -14,14 +14,14 @@ export class UserService {
 
     register(user: User): Observable<any> {
         const params = JSON.stringify(user);
-        const headers = new HttpHeaders().set('Content-type', 'application/json');
+        const header = new HttpHeaders().set('Content-Type', 'application/json');
 
-        return this.http.post(`${this.url}/register`, params, {headers: headers});
+        return this.http.post(`${this.url}/register`, params, {headers: header});
     }
 
 }
 
-
+// los srvicios son una clase con métodos que interactúan con una servicio rest, peticiones ajax
 // injecyable nos permote definir los servicios y luego inyectarlos en otra clase
 // HttpHaders es para nviar cabeceras en cada una de las peticiones ajax
 // obsrvable es para poder recoger las respuestas de la api
