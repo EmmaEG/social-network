@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public submitted = false;
   public title: string;
+  public subtitle: string;
   public user: User;
   public status: string;
 
@@ -24,7 +25,8 @@ export class RegisterComponent implements OnInit {
     private userService: UserService
   ) {
     this.buildForm();
-    this.title = 'Registrate';
+    this.title = 'Regístrate';
+    this.subtitle = 'Únete a la comunidad de lectores';
   }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class RegisterComponent implements OnInit {
       this.userService.register(this.user).subscribe( // me subscribo al servicio y capturo el result de la api
         response => {
           if (response.user && response.user._id) {
-              this.status = 'success';
+              this.router.navigate(['/login']);
               this.registerForm.reset();
             } else {
               this.status = 'error';
