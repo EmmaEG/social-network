@@ -15,6 +15,7 @@ export class UserService {
         this.url = GLOBAL.url;
     }
 
+
     register(user: User): Observable<any> {
         const params = JSON.stringify(user);
         const header = new HttpHeaders().set('Content-Type', 'application/json');
@@ -44,6 +45,7 @@ export class UserService {
         return this.identity;
     }
 
+
     getToken() {
         const token = localStorage.getItem('token');
 
@@ -69,8 +71,8 @@ export class UserService {
     }
 
     // el usrerId por defecto vendrá a null
-    getCounters(userId = null) {
-        const header = new HttpHeaders().set('Content-Type', 'application/json')
+    getCounters(userId = null): Observable<any> {
+        const header = new HttpHeaders().set('Content-Type', 'application/json') // la forma en la que envío los datos
                                         .set('Authorization', this.getToken()); // obtengo el token del user identificado
         if (userId != null) {
             return this.http.get(`${this.url}counters/` + userId, {headers: header});
@@ -79,6 +81,15 @@ export class UserService {
         }
     }
 
+    updateUser(user: User): Observable<any> {
+        const params = JSON.stringify(user);
+        const header = new HttpHeaders().set('Content-Type', 'application/json') // la forma en la que envío los datos
+                                        .set('Authorization', this.getToken()); // obtengo el token del user identificado
+        
+        return this.http.put(`${this.url}update-user/`+ user._id, params, ({headers: header}));
+    }
+
+    
 }
 
 // los srvicios son una clase con métodos que interactúan con una servicio rest, peticiones ajax

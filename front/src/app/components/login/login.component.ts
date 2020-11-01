@@ -67,20 +67,19 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    private buildForm(): void {
+    private buildForm() {
         this.loginForm = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.pattern('(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,30}$)')]]
         });
     }
 
-    getToken(): void {
+    getToken() {
         const value = this.loginForm.value;
         this.user = new User(value._id, value.name, value.surname, value.nick, value.email, value.password, value.role, value.image);
         this.userService.signUp(this.user, 'true').subscribe( // me subscribo al servicio y capturo el result de la api
             response => {
                 this.token = response.token;
-                console.log(this.token);
                 if (this.token <= 0) {
                     this.status = 'error';
                 } else {
