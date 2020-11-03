@@ -5,6 +5,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { UsersComponent } from './components/users/users.component';
+
 
 
 const appRoutes: Routes = [
@@ -12,7 +14,10 @@ const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'profile', component: EditUserComponent}
+    {path: 'profile', component: EditUserComponent},
+    {path: 'people', component: UsersComponent},
+    {path: 'people/:page', component: UsersComponent},
+    {path: '**', component: HomeComponent}
 ];
 
 export const appRoutingProviders: any[] = [];

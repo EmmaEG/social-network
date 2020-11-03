@@ -86,10 +86,22 @@ export class UserService {
         const header = new HttpHeaders().set('Content-Type', 'application/json') // la forma en la que envío los datos
                                         .set('Authorization', this.getToken()); // obtengo el token del user identificado
         
-        return this.http.put(`${this.url}update-user/`+ user._id, params, ({headers: header}));
+        return this.http.put(`${this.url}update-user/`+ user._id, params, {headers: header});
     }
 
-    
+    getUsers(page = null): Observable<any> {
+        const header = new HttpHeaders().set('Content-Type', 'application/json') // la forma en la que envío los datos
+                                        .set('Authorization', this.getToken()); // obtengo el token del user identificado
+
+        return this.http.get(`${this.url}users/`+ page, {headers: header});
+    }
+
+    getUser(id): Observable<any> {
+        const header = new HttpHeaders().set('Content-Type', 'application/json') // la forma en la que envío los datos
+                                        .set('Authorization', this.getToken()); // obtengo el token del user identificado
+
+        return this.http.get(`${this.url}user/`+ id, {headers: header});
+    }
 }
 
 // los srvicios son una clase con métodos que interactúan con una servicio rest, peticiones ajax
