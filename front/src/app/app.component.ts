@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from './services/user.service';
+import { GLOBAL } from './services/global';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   public title: string;
   public identity;
+  public url: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,6 +21,7 @@ export class AppComponent {
     private userService: UserService
   ){
     this.title = 'THOT';
+    this.url = GLOBAL.url;
   }
 
   ngOnInit() {
