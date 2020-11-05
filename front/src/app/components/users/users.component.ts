@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user';
+import { Follow } from '../../models/follow';
 import { UserService } from '../../services/user.service';
+import { FollowService } from '../../services/follow.service';
 import { GLOBAL } from '../../services/global';
 
 
@@ -9,10 +11,11 @@ import { GLOBAL } from '../../services/global';
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  providers: [UserService]
+  providers: [UserService, FollowService]
 })
 export class UsersComponent implements OnInit {
   public title: string;
+  public url: string;
   public identity;
   public token;
   public page;
@@ -21,20 +24,23 @@ export class UsersComponent implements OnInit {
   public total;
   public pages;
   public users: User[];
+  public follows;
   public status: string;
 
   constructor( //inyectamos los servicios
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
+    private followService: FollowService
   ) {
     this.title = 'Personas';
+    this.url = GLOBAL.url;
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
+
    }
 
   ngOnInit(): void {
-    console.log('cargado user component');
     this.actualPage();
   }
 
@@ -42,6 +48,10 @@ export class UsersComponent implements OnInit {
     this.route.params.subscribe(params => {
       let page = +params['page']; // con + lo convertimos a un entero
       this.page = page;
+
+      if (!params['page']) {
+        page = 1;
+      }
 
       if (!page) {
         page = 1;
@@ -67,6 +77,10 @@ export class UsersComponent implements OnInit {
           this.total = response.total;
           this.users = response.users;
           this.pages = response.pages;
+          this.follows = response.users_following;
+
+          console.log(this.follows);
+          
           if (page > this.pages) {
             this.router.navigate(['/people',1]);
           }
@@ -75,6 +89,49 @@ export class UsersComponent implements OnInit {
       error => {
         console.log(error);
         this.status = 'error'
+      }
+    );
+  }
+
+  public followUserOver;
+  mouseEnter(user_id) {
+    this.followUserOver = user_id;
+  }
+
+  mouseLeave(user_id) {
+    this.followUserOver = 0;
+  }
+
+  followUser(followed) {
+    var follow = new Follow('', this.identity._id, followed);
+    
+    this.followService.addFollow(this.token, follow).subscribe(
+      response => {
+        if (!response.follow) {
+          this.status = 'error';
+        } else {
+          this.status = 'success';
+          this.follows.push(followed);
+          }
+        },
+      error => {
+        console.log(error);
+        this.status = 'error';
+      }
+    );
+  }
+
+  unfollowUser(followed) {
+    this.followService.deleteFollow(this.token, followed).subscribe(
+      response => {
+        let search = this.follows.indexOf(followed);
+          if (search != -1) {
+            this.follows.splice(search, 1);
+          }
+        },
+      error => {
+        console.log(error);
+        this.status = 'error';
       }
     );
   }

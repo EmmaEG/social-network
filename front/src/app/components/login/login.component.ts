@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('componente de login cargado');
     }
 
     get f() { return this.loginForm.controls; }
