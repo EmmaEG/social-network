@@ -11,6 +11,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { UsersComponent } from './components/users/users.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { PublicationComponent } from './components/publication/publication.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 
 
@@ -21,7 +24,10 @@ import { UsersComponent } from './components/users/users.component';
     RegisterComponent,
     HomeComponent,
     EditUserComponent,
-    UsersComponent
+    UsersComponent,
+    SidebarComponent,
+    PublicationComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,

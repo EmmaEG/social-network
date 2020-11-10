@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <div class="card col-lg-6 col-md-8 col-sm-10 offset-lg-3 offset-md-2 offset-sm-1 mt-5 mb-5">
+        <div class="alert alert-danger text-center mt-2" *ngIf="status == 'error'">
+            Ocurrió un error, intentalo de nuevo!
+        </div>
+
+        <div class="alert alert-success text-center mt-2" *ngIf="status == 'success'">
+            Publicación exitosa
+        </div>
+
+        <form [formGroup]="publicationForm" (ngSubmit)="postPublication($event)" class="col-lg-12">
+            <div class="form-group">
+                <textarea class="form-control mt-3" formControlName="text" rows="3"
+                    [ngClass]="{ 'is-invalid': f.text.touched && f.text.errors }"
+                    placeholder="Crear publicación"></textarea>
+                <div *ngIf="f.text.touched && f.text.errors" class="invalid-feedback">
+                    <div *ngIf="f.text.errors.required">Debes redactar algo para subir una publicación</div>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="col">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input">
+                        <label class="custom-file-label" for="customFile">subir imagen...</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="submit" value="{{title}}" class="btn btn-info btn-block"
+                        [disabled]="!publicationForm.valid">
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!--<i class="fas fa-pen"></i>-->

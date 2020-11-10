@@ -18,7 +18,7 @@ function savePublication(req, res) {
 
     if(!params.text) return res.status(200).send({message: 'Debes enviar un texto'});
 
-    var publication = new Publcation();
+    var publication = new Publication();
     publication.text = params.text;
     publication.file = 'null';
     publication.user = req.user.sub; //guardo el id del user que crea la pub
