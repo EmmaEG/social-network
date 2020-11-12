@@ -1,9 +1,15 @@
-.card-image-default {
-    padding: 30px;
-    padding-top: 45px;
-    padding-bottom: 45px;
+.btn-follows {
+    margin-right: 5px;
 }
 
-.btn-follows {
-    margin: 5px;
+.h1-users {
+    border-bottom: 1px solid #24292e;
+}
+
+.card-title {
+    margin: 0;
+}
+
+.card-text {
+    margin: 0;
 }

@@ -58,6 +58,7 @@ function getPublications(req, res) {
             follows_clean.push(follow.followed);
         });
         
+        follows_clean.push(req.user.sub);
         //comprobamos si alguno de los usuarios guardados están dentro de la propiedad user de alguno 
         //de los documentos de publicaciones
 
@@ -66,7 +67,7 @@ function getPublications(req, res) {
         //las publicaciones de las mas nuevas a las mas viejas y con el populate hacemos que nos dev
         //vuelva los datos completos del usuario que ha creado una publicación, y por ultimo el metodo
         //paginate para hacer la paginacion                                                       //pagina actual
-        Publication.find({user : {"$in": follows_clean}}).sort('crated_at').populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
+        Publication.find({user : {"$in": follows_clean}}).sort('-created_at').populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
         
             if(err) return res.status(500).send({message: 'Error al devolver las publicaciones'});
 
@@ -76,7 +77,8 @@ function getPublications(req, res) {
                 total_items: total,
                 pages : Math.ceil(total/itemsPerPage),
                 page: page,
-                publications                
+                items_Per_Page: itemsPerPage,
+                publications
             });
         });
     });

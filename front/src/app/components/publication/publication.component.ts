@@ -58,7 +58,7 @@ export class PublicationComponent implements OnInit {
     
   private buildForm(): void {
     this.publicationForm = this.formBuilder.group({
-      text: ['', [Validators.required, Validators.minLength(10)]]
+      text: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]]
     });
   }
 

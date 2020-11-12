@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; // modulo para peticiones ajax y htttp
 import { routing, appRoutingProviders } from './app.routing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MomentModule } from 'angular2-moment';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -34,6 +35,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MomentModule,
     routing
   ],
   providers: [
