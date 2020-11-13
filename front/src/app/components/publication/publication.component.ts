@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Publication } from '../../models/publication';
 import { UserService } from '../../services/user.service';
@@ -60,6 +60,11 @@ export class PublicationComponent implements OnInit {
     this.publicationForm = this.formBuilder.group({
       text: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]]
     });
+  }
+
+  @Output() sended = new EventEmitter();
+  sendPublication(event) {
+    this.sended.emit({send: 'true'});
   }
 
 }

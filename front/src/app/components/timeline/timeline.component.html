@@ -22,14 +22,17 @@
                                 </div>
                         </div>
                         <div class="col-lg-12 text-center">
-                                <button type="button" class="btn btn-dark" (click)="viewMore()" *ngIf="!noMore">
+                                <button type="button" class="btn btn-dark m-1" (click)="viewMore()" *ngIf="!noMore">
                                         Ver más
+                                </button>
+                                <button type="button" class="btn btn-info m-1" (click)="refresh($event)">
+                                        Ver nuevas publicaciones
                                 </button>
                         </div>
                 </div>
                 <div class="col-12 col-lg-5 mt-4 mb-4">
                         <!--<h1 class="h1-strong h1-timeline">Hola {{identity.nick}}</h1>-->
-                        <app-publication></app-publication>
+                        <app-publication (sended)="refresh($event)"></app-publication>
                 </div>
         </div>
 </div>

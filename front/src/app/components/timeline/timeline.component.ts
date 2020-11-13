@@ -57,7 +57,7 @@ export class TimelineComponent implements OnInit {
             var arrayA = this.publications;
             var arrayB = response.publications;
             this.publications = arrayA.concat(arrayB); //agrego las pub al array A
-            $("html, body").animate({ scrollTop: $('body').prop("scrollHeight")}, 500);
+            $("html, body").animate({ scrollTop: $('body').prop("scrollHeight")}, 800);
           }
 
           if (page > this.pages) {
@@ -81,6 +81,13 @@ export class TimelineComponent implements OnInit {
       this.page += 1;
     }
     this.getPublications(this.page, true); // el true es para el adding
+  }
+
+  refresh(event) {
+    $("html, body").animate({ scrollTop: $('body').prop("scrollTop")}, 800);
+    setTimeout(() => {
+      this.getPublications(1); // pagina 1
+     }, 1000);
   }
 
 }
