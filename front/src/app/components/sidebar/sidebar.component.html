@@ -1,29 +1,33 @@
-<div class="card" style="background-color: #fff;">
-    <div class="card-header text-white" style="background-color: #24292e;">
-        <h5 class="card-title">{{identity.name + ' ' + identity.surname}}</h5>
-    </div>
-    <img src="{{url +'get-image-user/' + identity.image}}" class="card-img-top" *ngIf="identity.image">
-    <img src="assets/user.png" class="card-img-top" *ngIf="!identity.image">
-    <div class="card-body" style="color: black;">
-        <div class="col text-center">
-        <div class="card-text" *ngIf="stats">
-            <p class="card-text">
-                <i class="fas fa-user-check mr-2"></i>
-                Siguiendo {{stats.following}}
-            </p>
+<div class="container">
+    <div class="row">
+        <div class="card" style="background-color: #fff;">
+            <div class="card-header text-white" style="background-color: #24292e;">
+                <h5 class="card-title">{{identity.name + ' ' + identity.surname}}</h5>
+            </div>
+            <img src="{{url +'get-image-user/' + identity.image}}" class="card-img-top" *ngIf="identity.image">
+            <img src="assets/user.png" class="card-img-top" *ngIf="!identity.image">
+            <div class="card-body" style="color: black;">
+                <div class="col text-center">
+                    <div class="card-text" *ngIf="stats">
+                        <p class="card-text">
+                            <i class="fas fa-user-check mr-2"></i>
+                            Siguiendo {{stats.following}}
+                        </p>
+                    </div>
+                    <div class="card-text" *ngIf="stats">
+                        <p class="card-text">
+                            <i class="fas fa-users mr-2"></i>
+                            Seguidores {{stats.followed}}
+                        </p>
+                    </div>
+                    <div class="card-text" *ngIf="stats">
+                        <p class="card-text">
+                            <i class="fas fa-comment-alt mr-2"></i>
+                            Publicaciones {{stats.publications}}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-text" *ngIf="stats">
-            <p class="card-text">
-                <i class="fas fa-users mr-2"></i>
-                Seguidores {{stats.followed}}
-            </p>
-        </div>
-        <div class="card-text" *ngIf="stats">
-            <p class="card-text">
-                <i class="fas fa-comment-alt mr-2"></i>
-                Publicaciones {{stats.publications}}
-            </p>
-        </div>
-    </div>
     </div>
 </div>

@@ -1,36 +1,32 @@
-<div class="card">
-    <div class="alert alert-danger text-center mt-2" *ngIf="status == 'error'">
-        Ocurrió un error, intentalo de nuevo!
-    </div>
-    <!--
-    <div class="alert alert-success text-center mt-2" *ngIf="status == 'success'">
-        Publicación exitosa
-    </div>
-    -->
-    <form [formGroup]="publicationForm" (ngSubmit)="postPublication($event); sendPublication($event);" class="col-lg-12">
-        <div class="form-group">
-            <textarea class="form-control mt-3" formControlName="text" rows="3"
-                [ngClass]="{ 'is-invalid': f.text.touched && f.text.errors }"
-                placeholder="Crear publicación"></textarea>
-            <div *ngIf="f.text.touched && f.text.errors" class="invalid-feedback">
-                <div *ngIf="f.text.errors.required">Debes redactar algo para subir una publicación, la longitud de la
-                    publicación dede ser como mínimo de 6 caracteres y como maximo de 250.</div>
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="alert alert-danger text-center" *ngIf="status == 'error'">
+                Ocurrió un error, intentalo de nuevo!
             </div>
-        </div>
-        <div class="form-row mb-3">
-            <div class="col">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input">
-                    <label class="custom-file-label" for="customFile">subir imagen...</label>
+            <form [formGroup]="publicationForm" (ngSubmit)="postPublication($event); sendPublication($event);"
+                class="col-lg-12">
+                <div class="form-group">
+                    <textarea class="form-control mt-3" formControlName="text" rows="3"
+                        [ngClass]="{ 'is-invalid': f.text.touched && f.text.errors }"
+                        placeholder="Crear publicación"></textarea>
+                    <div *ngIf="f.text.touched && f.text.errors" class="invalid-feedback">
+                        <div *ngIf="f.text.errors.required">Debes redactar algo para subir una publicación, la longitud
+                            de la
+                            publicación dede ser como mínimo de 6 caracteres y como maximo de 250.</div>
+                    </div>
                 </div>
-            </div>
-            <div class="col">
-                <input type="submit" value="{{title}}" class="btn btn-info btn-block ml-2"
-                    [disabled]="!publicationForm.valid">
-            </div>
+                <div class="form-row mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input">
+                        <label class="custom-file-label" for="customFile">subir imagen...</label>
+                    </div>
+                    <input type="submit" value="{{title}}" class="btn btn-info btn-block mt-2"
+                        [disabled]="!publicationForm.valid">
+                </div>
+            </form>
         </div>
-    </form>
-
+    </div>
 </div>
 
 

@@ -1,20 +1,30 @@
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="card mt-5" style="max-width: 540px;" *ngIf="user" >
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img class="image-profile" src="{{ url + 'get-image-user/' + user.image }}" *ngIf="user.image">
-                    <img class="image-profile" src="assets/user.png" *ngIf="!user.image">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">{{user.name + ' ' + user.surname + ' - ' + user.nick}}</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
+    <div class="col text-center mt-4">
+        <h1>{{title}}</h1>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mb-4"><!--que cada columna en disp pequeños ocupe 12 columnas
+        en disp med 6 columnas (2 x pantalla) y en dip grandes 4 colum (3 por pantalla)-->
+          <div class="card" *ngIf="user" >
+            <img class="image-profile" src="{{ url + 'get-image-user/' + user.image }}" *ngIf="user.image">
+            <img class="image-profile" src="assets/user.png" *ngIf="!user.image">
+            <div class="card-body">
+                <h5 class="card-title">{{user.name + ' ' + user.surname + ' - ' + user.nick}}</h5>
+            <!--  <div class="badges mb-2">
+                <span class="badge badge-warning">TypeScript</span>
+                <span class="badge badge-danger">Angular</span>
+              </div>
+              <p class="card-text">JavaScript fue desarrollado originalmente por Brendan Eich de Netscape con el
+                 nombre de Mocha, el cual fue renombrado posteriormente a LiveScript, para finalmente quedar como
+                  JavaScript. El cambio de nombre coincidió aproximadamente con el momento en que Netscape agregó 
+                  compatibilidad con la tecnología Java en su navegador web Netscape Navigator en la versión 2002 
+                  en diciembre de 1995.</p>
             </div>
+            -->
+          </div>
         </div>
     </div>
-</div>
+
+

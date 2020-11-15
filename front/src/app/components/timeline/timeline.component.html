@@ -1,11 +1,11 @@
-<div class="container-fluid mt-4">
-        <div class="row">                
+<div class="container mt-4">
+        <div class="row">
                 <div class="col-12 col-lg-5 offset-lg-1 mt-4 mb-4">
-                        <!--<h1 class="h1-strong h1-timeline">{{title}}</h1>-->
+                        <h1 class="h1-strong h1-timeline text-center">{{title}}</h1>
                         <div *ngFor="let publication of publications" class="item-publication">
                                 <div class="card card-timeline mb-3">
                                         <div class="row no-gutters">
-                                                <div class="images col-md-3 col-lg-3">
+                                                <div class="images">
                                                         <img src="{{ url + 'get-image-user/' + publication.user.image }}"
                                                                 class="card-img" *ngIf="publication.user.image">
                                                         <img src="assets/user.png" class="card-img card-image-default"
@@ -31,7 +31,7 @@
                         </div>
                 </div>
                 <div class="col-12 col-lg-5 mt-4 mb-4">
-                        <!--<h1 class="h1-strong h1-timeline">Hola {{identity.nick}}</h1>-->
+                        <h1 class="h1-strong h1-timeline text-center">Hola {{identity.nick}}</h1>
                         <app-publication (sended)="refresh($event)"></app-publication>
                 </div>
         </div>
