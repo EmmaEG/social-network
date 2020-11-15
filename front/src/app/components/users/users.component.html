@@ -5,7 +5,7 @@
             <div *ngFor="let user of users" class="item-user">
                 <div class="card mb-3" *ngIf="identity._id != user._id">
                     <div class="row no-gutters">
-                        <div class="images  col-md-3 col-lg-3">
+                        <div class="images col-md-3 col-lg-3">
                             <img src="{{ url + 'get-image-user/' + user.image }}" class="card-img" *ngIf="user.image">
                             <img src="assets/user.png" class="card-img card-image-default" *ngIf="!user.image">
                         </div>
