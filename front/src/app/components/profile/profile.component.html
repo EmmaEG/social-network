@@ -1,30 +1,54 @@
 <div class="container">
-    <div class="row">
-    <div class="col text-center mt-4">
-        <h1>{{title}}</h1>
-      </div>
-    </div>
-
-    <div class="col-12 col-md-6 col-lg-4 mb-4"><!--que cada columna en disp pequeños ocupe 12 columnas
-        en disp med 6 columnas (2 x pantalla) y en dip grandes 4 colum (3 por pantalla)-->
-          <div class="card" *ngIf="user" >
+  <div class="row">
+    <div class="col-lg-7 col-md-6 mb-4">
+    <div class="card p-2 mt-3 mb-3" *ngIf="user">
+      <div class="row no-gutters">
+        <div class="image-user float-left">
             <img class="image-profile" src="{{ url + 'get-image-user/' + user.image }}" *ngIf="user.image">
             <img class="image-profile" src="assets/user.png" *ngIf="!user.image">
-            <div class="card-body">
-                <h5 class="card-title">{{user.name + ' ' + user.surname + ' - ' + user.nick}}</h5>
-            <!--  <div class="badges mb-2">
-                <span class="badge badge-warning">TypeScript</span>
-                <span class="badge badge-danger">Angular</span>
-              </div>
-              <p class="card-text">JavaScript fue desarrollado originalmente por Brendan Eich de Netscape con el
-                 nombre de Mocha, el cual fue renombrado posteriormente a LiveScript, para finalmente quedar como
-                  JavaScript. El cambio de nombre coincidió aproximadamente con el momento en que Netscape agregó 
-                  compatibilidad con la tecnología Java en su navegador web Netscape Navigator en la versión 2002 
-                  en diciembre de 1995.</p>
-            </div>
-            -->
-          </div>
         </div>
+          <div class="card-body">
+            <div class="follow" *ngIf="followed">
+              <h6><span class="badge badge-secondary">Te sigue</span></h6>
+            </div>
+            <h5 class="card-title">
+              {{ user.name + ' ' + user.surname + ' - ' + user.nick }}
+            </h5>
+            <div class="clear-fix"></div>
+            <div class="row stats">
+              <div class="label-stats" *ngIf="stats">
+                <p class="card-text mb-0 label-stats">
+                  <i class="fas fa-user-check mr-2"></i>
+                  Siguiendo
+                </p>
+                <p>{{ stats.following }}</p>
+              </div>
+              <div class="label-stats" *ngIf="stats">
+                <p class="card-text mb-0 label-stats">
+                  <i class="fas fa-users mr-2"></i>
+                  Seguidores
+                </p>
+                <p>{{ stats.followed }}</p>
+
+              </div>
+              <div class="label-stats" *ngIf="stats">
+                <p class="card-text mb-0 label-stats">
+                  <i class="fas fa-comment-alt mr-2"></i>
+                  Publicaciones
+                </p>
+                <p>{{ stats.publications }}</p>
+
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
+  </div>
+  <div class="col-lg-5 col-md-6 mt-3 mb-4 d-none d-md-block d-l-block">
+    <app-sidebar></app-sidebar>
+    <app-publication></app-publication>
+  </div>
+  </div>
+</div>
 
 

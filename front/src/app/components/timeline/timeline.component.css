@@ -1,5 +1,28 @@
-.images img {
-    width: 140px;
-    height: 140px;
+.item-publication .image-user  {
+    width: 75px;
+    height: 75px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin: 5px;
 }
 
+.item-publication .image-user img  {
+    width: 100%;
+} 
+
+.card-body {
+    padding: 0px;
+    margin-left: 15px;
+}
+
+@media (min-width: 767px) { 
+    #publication {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) { 
+    #publication {
+        display: block;
+    }
+}

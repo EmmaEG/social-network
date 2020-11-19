@@ -1,33 +1,53 @@
 <div class="container">
-    <div class="row">
-        <div class="card" style="background-color: #fff;">
-            <div class="card-header text-white" style="background-color: #24292e;">
-                <h5 class="card-title">{{identity.name + ' ' + identity.surname}}</h5>
-            </div>
-            <img src="{{url +'get-image-user/' + identity.image}}" class="card-img-top" *ngIf="identity.image">
-            <img src="assets/user.png" class="card-img-top" *ngIf="!identity.image">
-            <div class="card-body" style="color: black;">
-                <div class="col text-center">
-                    <div class="card-text" *ngIf="stats">
-                        <p class="card-text">
-                            <i class="fas fa-user-check mr-2"></i>
-                            Siguiendo {{stats.following}}
-                        </p>
-                    </div>
-                    <div class="card-text" *ngIf="stats">
-                        <p class="card-text">
-                            <i class="fas fa-users mr-2"></i>
-                            Seguidores {{stats.followed}}
-                        </p>
-                    </div>
-                    <div class="card-text" *ngIf="stats">
-                        <p class="card-text">
-                            <i class="fas fa-comment-alt mr-2"></i>
-                            Publicaciones {{stats.publications}}
-                        </p>
-                    </div>
-                </div>
-            </div>
+  <div class="row">
+    <div class="card p-2 mb-3">
+      <div class="row no-gutters">
+        <div class="image-user float-left">
+          <a [routerLink]="['/user-profile', identity._id]">
+          <img
+            src="{{ url + 'get-image-user/' + identity.image }}"
+            class="card-img-top"
+            *ngIf="identity.image"
+          />
+          <img
+            src="assets/user.png"
+            class="card-img-top"
+            *ngIf="!identity.image"
+          />
+        </a>
         </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ identity.name + " " + identity.surname }}
+            </h5>
+            <div class="clear-fix"></div>
+            <div class="row stats">
+              <div class="label-stats" *ngIf="stats">
+                <p class="card-text mb-0 label-stats">
+                  <i class="fas fa-user-check mr-2"></i>
+                  Siguiendo
+                </p>
+                <p>{{ stats.following }}</p>
+              </div>
+              <div class="label-stats" *ngIf="stats">
+                <p class="card-text mb-0 label-stats">
+                  <i class="fas fa-users mr-2"></i>
+                  Seguidores
+                </p>
+                <p>{{ stats.followed }}</p>
+
+              </div>
+              <div class="label-stats" *ngIf="stats">
+                <p class="card-text mb-0 label-stats">
+                  <i class="fas fa-comment-alt mr-2"></i>
+                  Publicaciones
+                </p>
+                <p>{{ stats.publications }}</p>
+
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
+  </div>
 </div>

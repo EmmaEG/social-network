@@ -11,6 +11,7 @@ import { Publication } from '../../models/publication';
   providers: [UserService]
 })
 export class SidebarComponent implements OnInit {
+  public title: string;
   public identity;
   public token;
   public stats;
@@ -20,6 +21,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private userService: UserService,
   ) { 
+    this.title = 'Mis datos';
     this.identity = this.userService.getIdentity(); //usuario logueado
     this.token = this.userService.getToken();
     this.stats = this.userService.getStats();

@@ -21,20 +21,23 @@ export class ProfileComponent implements OnInit {
   public token;
   public stats;
   public url;
-  public follow;
+  public followed;
+  public following;
 
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private FollowService: FollowService
+    private followService: FollowService
 
   ) {
     this.title = 'Perfil';
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
     this.url = GLOBAL.url;
+    this.followed = false;
+    this.following = false;
    }
 
   ngOnInit(): void {
@@ -54,6 +57,13 @@ export class ProfileComponent implements OnInit {
       response => {
         if (response.user) {
           this.user = response.user;
+        if (response.following && response.following._id) {
+          this.following = true;
+        }
+        if (response.followed && response.followed._id) {
+          this.followed = true;
+        }
+
         } else {
           this.status = 'error';
         }
@@ -69,6 +79,30 @@ export class ProfileComponent implements OnInit {
     this.userService.getCounters(id).subscribe(
       response => {
         this.stats = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  followUser(followed) { // id, userid del user identificado y el usuario que voy a seguir
+    var follow = new Follow('', this.identity._id, followed);
+
+    this.followService.addFollow(this.token, follow).subscribe(
+      response => {
+        this.following = true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  UnFollowUser(followed) {
+    this.followService.deleteFollow(this.token, followed).subscribe(
+      response => {
+        this.following = false;
       },
       error => {
         console.log(error);

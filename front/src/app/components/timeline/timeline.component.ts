@@ -50,13 +50,13 @@ export class TimelineComponent implements OnInit {
           this.pages = response.pages;
           this.itemsPerPage = response.items_per_page;
 
-          //paginamos de manera infinita
-          if (!adding) { //si adding es false
+          // paginamos de manera infinita
+          if (!adding) { // si adding es false
           this.publications = response.publications; // array de publicaciones
           } else { 
-            var arrayA = this.publications;
-            var arrayB = response.publications;
-            this.publications = arrayA.concat(arrayB); //agrego las pub al array A
+            let arrayA = this.publications;
+            let arrayB = response.publications;
+            this.publications = arrayA.concat(arrayB); // agrego las pub al array A
             $("html, body").animate({ scrollTop: $('body').prop("scrollHeight")}, 800);
           }
 
