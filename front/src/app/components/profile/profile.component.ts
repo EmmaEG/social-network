@@ -38,14 +38,14 @@ export class ProfileComponent implements OnInit {
     this.url = GLOBAL.url;
     this.followed = false;
     this.following = false;
-   }
+  }
 
   ngOnInit(): void {
     this.loadPage();
   }
 
   loadPage() { // obtenemos los paramatros de la url
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
       let id = params['id'];
       this.getUser(id);
       this.getCounters(id);
@@ -57,13 +57,12 @@ export class ProfileComponent implements OnInit {
       response => {
         if (response.user) {
           this.user = response.user;
-        if (response.following && response.following._id) {
-          this.following = true;
-        }
-        if (response.followed && response.followed._id) {
-          this.followed = true;
-        }
-
+          if (response.following && response.following._id) {
+            this.following = true;
+          }
+          if (response.followed && response.followed._id) {
+            this.followed = true;
+          }
         } else {
           this.status = 'error';
         }
@@ -71,7 +70,7 @@ export class ProfileComponent implements OnInit {
       error => {
         console.error();
         this.router.navigate(['/user-profile', this.identity._id]);
-      }      
+      }
     );
   }
 
@@ -109,5 +108,15 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+  public followUserOver;
+  mouseEnter(user_id) {
+    this.followUserOver = user_id;
+  }
+
+  mouseLeave() {
+    this.followUserOver = 0;
+  }
+
 
 }

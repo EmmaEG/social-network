@@ -1,18 +1,26 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-7 col-md-6 mb-4">
-    <div class="card p-2 mt-3 mb-3" *ngIf="user">
-      <div class="row no-gutters">
-        <div class="image-user float-left">
-            <img class="image-profile" src="{{ url + 'get-image-user/' + user.image }}" *ngIf="user.image">
-            <img class="image-profile" src="assets/user.png" *ngIf="!user.image">
-        </div>
+      <div class="card p-2 mt-3 mb-3" *ngIf="user">
+        <div class="row no-gutters">
+          <div class="image-user float-left">
+            <img
+              class="image-profile"
+              src="{{ url + 'get-image-user/' + user.image }}"
+              *ngIf="user.image"
+            />
+            <img
+              class="image-profile"
+              src="assets/user.png"
+              *ngIf="!user.image"
+            />
+          </div>
           <div class="card-body">
             <div class="follow" *ngIf="followed">
-              <h6><span class="badge badge-secondary">Te sigue</span></h6>
+              <h6><span class="badge badge-secondary mt-2">Te sigue</span></h6>
             </div>
             <h5 class="card-title">
-              {{ user.name + ' ' + user.surname + ' - ' + user.nick }}
+              {{ user.name + " " + user.surname + " - " + user.nick }}
             </h5>
             <div class="clear-fix"></div>
             <div class="row stats">
@@ -21,34 +29,57 @@
                   <i class="fas fa-user-check mr-2"></i>
                   Siguiendo
                 </p>
-                <p>{{ stats.following }}</p>
+                <p class="mb-1">{{ stats.following }}</p>
               </div>
               <div class="label-stats" *ngIf="stats">
                 <p class="card-text mb-0 label-stats">
                   <i class="fas fa-users mr-2"></i>
                   Seguidores
                 </p>
-                <p>{{ stats.followed }}</p>
-
+                <p class="mb-1">{{ stats.followed }}</p>
               </div>
               <div class="label-stats" *ngIf="stats">
                 <p class="card-text mb-0 label-stats">
                   <i class="fas fa-comment-alt mr-2"></i>
                   Publicaciones
                 </p>
-                <p>{{ stats.publications }}</p>
-
+                <p class="mb-1">{{ stats.publications }}</p>
               </div>
             </div>
+            <div class="clear-fix"></div>
+            <div class="buttons">
+            <button
+              class="btn btn-info m-1"
+              *ngIf="!following"
+              (click)="followUser(user._id)"
+            >
+              <i class="fas fa-plus-circle"></i>
+              Seguir
+            </button>
+            <button
+              class="btn btn-success m-1"
+              *ngIf="following"
+              (click)="UnFollowUser(user._id)"
+              (mouseenter)="mouseEnter(user._id)"
+              (mouseleave)="mouseLeave()"
+              [class.btn-danger]="user._id == followUserOver"
+            >
+            <span *ngIf="user._id == followUserOver; else following">
+              Dejar de seguir
+            </span>
+            <ng-template #following>
+              <i class="far fa-check-circle"></i>
+              Siguiendo
+            </ng-template>
+            </button>
           </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-5 col-md-6 mt-3 mb-4 d-none d-md-block d-l-block">
-    <app-sidebar></app-sidebar>
-    <app-publication></app-publication>
-  </div>
+    <div class="col-lg-5 col-md-6 mt-3 mb-4 d-none d-md-block d-l-block">
+      <app-sidebar></app-sidebar>
+      <app-publication></app-publication>
+    </div>
   </div>
 </div>
-
-
