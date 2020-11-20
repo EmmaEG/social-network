@@ -40,7 +40,7 @@ export class PublicationComponent implements OnInit {
     if (this.publicationForm.valid) {
       const value = this.publicationForm.value;
       this.publication = new Publication(value._id, value.text, value.file, value.created_at, this.identity._id);
-      this.publicationService.addPublication(this.token, this.publication).subscribe( // me subscribo al servicio y capturo el result de la api
+      this.publicationService.addPublication(this.token, this.publication).subscribe( // me subs al servicio y capturo el result de la api
         response => {
             if (response.publication) {
                 this.status = 'success';

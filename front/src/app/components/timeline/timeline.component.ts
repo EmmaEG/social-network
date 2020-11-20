@@ -14,16 +14,6 @@ import * as $ from 'jquery';
   providers: [UserService, PublicationService]
 })
 export class TimelineComponent implements OnInit {
-  public title: string;
-  public identity;
-  public token;
-  public url: string;
-  public status: string;
-  public page;
-  public total;
-  public pages;
-  public itemsPerPage;
-  public publications: Publication[];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,13 +26,24 @@ export class TimelineComponent implements OnInit {
     this.token = this.userService.getToken();
     this.url = GLOBAL.url;
     this.page = 1;
-   }
+  }
+  public title: string;
+  public identity;
+  public token;
+  public url: string;
+  public status: string;
+  public page;
+  public total;
+  public pages;
+  public itemsPerPage;
+  public publications: Publication[];
+  public noMore = false;
 
   ngOnInit(): void {
     this.getPublications(this.page);
   }
 
-  getPublications(page, adding = false) {
+  getPublications(page, adding = false): void {
     this.publicationService.getPublications(this.token, page).subscribe(
       response => {
         if (response.publications) {
@@ -52,12 +53,12 @@ export class TimelineComponent implements OnInit {
 
           // paginamos de manera infinita
           if (!adding) { // si adding es false
-          this.publications = response.publications; // array de publicaciones
-          } else { 
-            let arrayA = this.publications;
-            let arrayB = response.publications;
+            this.publications = response.publications; // array de publicaciones
+          } else {
+            const arrayA = this.publications;
+            const arrayB = response.publications;
             this.publications = arrayA.concat(arrayB); // agrego las pub al array A
-            $("html, body").animate({ scrollTop: $('body').prop("scrollHeight")}, 800);
+            $('html, body').animate({ scrollTop: $('body').prop('scrollHeight') }, 800);
           }
 
           if (page > this.pages) {
@@ -73,9 +74,8 @@ export class TimelineComponent implements OnInit {
     );
   }
 
-  public noMore = false;
-  viewMore() {
-    if (this.publications.length == this.total) {
+  viewMore(): void {
+    if (this.publications.length === this.total) {
       this.noMore = true;
     } else {
       this.page += 1;
@@ -83,11 +83,11 @@ export class TimelineComponent implements OnInit {
     this.getPublications(this.page, true); // el true es para el adding
   }
 
-  refresh(event) {
-    $("html, body").animate({ scrollTop: $('body').prop("scrollTop")}, 800);
+  refresh(event): void {
+    $('html, body').animate({ scrollTop: $('body').prop('scrollTop') }, 800);
     setTimeout(() => {
       this.getPublications(1); // pagina 1
-     }, 1000);
+    }, 1000);
   }
 
 }
