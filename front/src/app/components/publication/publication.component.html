@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-row mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input">
+                        <input type="file" class="custom-file-input" (change)="fileChangeEvent($event)">
                         <label class="custom-file-label" for="customFile">subir imagen...</label>
                     </div>
                     <input type="submit" value="{{title}}" class="btn btn-info btn-block mt-2"

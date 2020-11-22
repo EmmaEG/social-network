@@ -38,6 +38,7 @@ export class TimelineComponent implements OnInit {
   public itemsPerPage;
   public publications: Publication[];
   public noMore = false;
+  public showImage;
 
   ngOnInit(): void {
     this.getPublications(this.page);
@@ -87,6 +88,14 @@ export class TimelineComponent implements OnInit {
     setTimeout(() => {
       this.getPublications(1); // pagina 1
     }, 1000);
+  }
+
+  showThisImage(id): void {
+    this.showImage = id;
+  }
+
+  hideThisImage(id): void {
+    this.showImage = 0;
   }
 
 }
