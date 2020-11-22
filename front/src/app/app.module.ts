@@ -16,6 +16,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PublicationComponent } from './components/publication/publication.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PubprofileComponent } from './components/pubprofile/pubprofile.component';
 
 
 
@@ -30,7 +31,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     SidebarComponent,
     PublicationComponent,
     TimelineComponent,
-    ProfileComponent
+    ProfileComponent,
+    PubprofileComponent
   ],
   imports: [
     BrowserModule,

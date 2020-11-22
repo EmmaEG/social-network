@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   public url;
   public followed;
   public following;
-
+  public followUserOver;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
     this.loadPage();
   }
 
-  loadPage() { // obtenemos los paramatros de la url
+  loadPage(): void { // obtenemos los paramatros de la url
     this.route.params.subscribe(params => {
       let id = params['id'];
       this.getUser(id);
@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getUser(id) {
+  getUser(id): void {
     this.userService.getUser(id).subscribe(
       response => {
         if (response.user) {
@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  getCounters(id) {
+  getCounters(id): void {
     this.userService.getCounters(id).subscribe(
       response => {
         this.stats = response;
@@ -85,8 +85,8 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  followUser(followed) { // id, userid del user identificado y el usuario que voy a seguir
-    var follow = new Follow('', this.identity._id, followed);
+  followUser(followed): void { // id, userid del user identificado y el usuario que voy a seguir
+    let follow = new Follow('', this.identity._id, followed);
 
     this.followService.addFollow(this.token, follow).subscribe(
       response => {
@@ -98,7 +98,7 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  UnFollowUser(followed) {
+  UnFollowUser(followed): void {
     this.followService.deleteFollow(this.token, followed).subscribe(
       response => {
         this.following = false;
@@ -109,12 +109,11 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  public followUserOver;
-  mouseEnter(user_id) {
+  mouseEnter(user_id): void {
     this.followUserOver = user_id;
   }
 
-  mouseLeave() {
+  mouseLeave(): void {
     this.followUserOver = 0;
   }
 

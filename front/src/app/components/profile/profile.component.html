@@ -47,42 +47,38 @@
               </div>
             </div>
             <div class="clear-fix"></div>
-            <div class="buttons">
-            <button
-              class="btn btn-info m-1"
-              *ngIf="!following"
-              (click)="followUser(user._id)"
-            >
-              <i class="fas fa-plus-circle"></i>
-              Seguir
-            </button>
-            <button
-              class="btn btn-success m-1"
-              *ngIf="following"
-              (click)="UnFollowUser(user._id)"
-              (mouseenter)="mouseEnter(user._id)"
-              (mouseleave)="mouseLeave()"
-              [class.btn-danger]="user._id == followUserOver"
-            >
-            <span *ngIf="user._id == followUserOver; else following">
-              Dejar de seguir
-            </span>
-            <ng-template #following>
-              <i class="far fa-check-circle"></i>
-              Siguiendo
-            </ng-template>
-            </button>
-          </div>
+            <div class="buttons" *ngIf="identity._id != user._id">
+              <button
+                class="btn btn-info m-1"
+                *ngIf="!following"
+                (click)="followUser(user._id)"
+              >
+                <i class="fas fa-plus-circle"></i>
+                Seguir
+              </button>
+              <button
+                class="btn btn-success m-1"
+                *ngIf="following"
+                (click)="UnFollowUser(user._id)"
+                (mouseenter)="mouseEnter(user._id)"
+                (mouseleave)="mouseLeave()"
+                [class.btn-danger]="user._id == followUserOver"
+              >
+                <span *ngIf="user._id == followUserOver; else following">
+                  Dejar de seguir
+                </span>
+                <ng-template #following>
+                  <i class="far fa-check-circle"></i>
+                  Siguiendo
+                </ng-template>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-
-      <!--
-      <div *ngIf="user">
-      <app-timeline [user]="user._id"></app-timeline>
-    </div>
-    -->
-
+      <div class="col-12" *ngIf="user">
+        <app-pubprofile [user]="user._id"></app-pubprofile>
+      </div>
     </div>
     <div class="col-lg-5 col-md-6 mt-3 mb-4 d-none d-md-block d-l-block">
       <app-sidebar></app-sidebar>

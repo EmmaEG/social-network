@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { GLOBAL } from '../../services/global';
@@ -6,14 +6,13 @@ import { Publication } from '../../models/publication';
 import { PublicationService } from '../../services/publication.service';
 import * as $ from 'jquery';
 
-
 @Component({
-  selector: 'app-timeline',
-  templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.css'],
+  selector: 'app-pubprofile',
+  templateUrl: './pubprofile.component.html',
+  styleUrls: ['./pubprofile.component.css'],
   providers: [UserService, PublicationService]
 })
-export class TimelineComponent implements OnInit {
+export class PubprofileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
@@ -38,13 +37,14 @@ export class TimelineComponent implements OnInit {
   public itemsPerPage;
   public publications: Publication[];
   public noMore = false;
+  @Input() user: string; // esta propiedad la reciboo desde fuera
 
   ngOnInit(): void {
-    this.getPublications(this.page);
+    this.getPublications(this.user, this.page);
   }
 
-  getPublications(page, adding = false): void {
-    this.publicationService.getPublications(this.token, page).subscribe(
+  getPublications(user, page, adding = false): void {
+    this.publicationService.getPublicationsUser(this.token, user, page).subscribe(
       response => {
         if (response.publications) {
           this.total = response.total_items;
@@ -79,13 +79,13 @@ export class TimelineComponent implements OnInit {
     if (this.page === this.pages) {
       this.noMore = true;
     }
-    this.getPublications(this.page, true); // el true es para el adding
+    this.getPublications(this.user, this.page, true); // el true es para el adding
   }
 
   refresh(event): void {
     $('html, body').animate({ scrollTop: $('body').prop('scrollTop') }, 800);
     setTimeout(() => {
-      this.getPublications(1); // pagina 1
+      this.getPublications(this.user, this.page); // pagina 1
     }, 1000);
   }
 

@@ -3,7 +3,6 @@
     <div class="card p-2 mb-3">
       <div class="row no-gutters">
         <div class="image-user float-left">
-          <a [routerLink]="['/user-profile', identity._id]">
           <img
             src="{{ url + 'get-image-user/' + identity.image }}"
             class="card-img-top"
@@ -14,7 +13,6 @@
             class="card-img-top"
             *ngIf="!identity.image"
           />
-        </a>
         </div>
           <div class="card-body">
             <h5 class="card-title">

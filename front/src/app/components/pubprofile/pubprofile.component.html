@@ -1,14 +1,6 @@
 <div class="container">
-  <div class="row mt-4">
-    <div class="col">
-      <h2>{{ title }}</h2>
-    </div>
-  </div>
   <div class="row">
-    <div id="publication" class="col-lg-6 col-md-6 mb-4">
-      <app-publication (sended)="refresh($event)"></app-publication>
-    </div>
-    <div class="col-lg-7 col-md-6 mb-4">
+    <div>
       <div *ngFor="let publication of publications" class="item-publication">
         <div class="card mb-3">
           <div class="row no-gutters">
@@ -57,18 +49,7 @@
         >
           Ver más
         </button>
-        <button
-          type="button"
-          class="btn btn-info m-1"
-          (click)="refresh($event)"
-        >
-          Ver nuevas publicaciones
-        </button>
       </div>
-    </div>
-    <div class="col-lg-5 col-md-6 mb-4 d-none d-md-block d-l-block">
-      <app-sidebar></app-sidebar>
-      <app-publication (sended)="refresh($event)"></app-publication>
     </div>
   </div>
 </div>
