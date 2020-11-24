@@ -67,7 +67,7 @@ function getPublications(req, res) {
         //las publicaciones de las mas nuevas a las mas viejas y con el populate hacemos que nos dev
         //vuelva los datos completos del usuario que ha creado una publicación, y por ultimo el metodo
         //paginate para hacer la paginacion                                                       //pagina actual
-        Publication.find({user : {"$in": follows_clean}}).sort('-created_at').populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
+        Publication.find({user: {"$in": follows_clean}}).sort('-created_at').populate('user').paginate(page, itemsPerPage, (err, publications, total) => {
         
             if(err) return res.status(500).send({message: 'Error al devolver las publicaciones'});
 
