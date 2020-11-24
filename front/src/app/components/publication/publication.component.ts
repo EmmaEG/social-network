@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild, Output, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Publication } from '../../models/publication';
 import { UserService } from '../../services/user.service';
@@ -40,6 +40,9 @@ export class PublicationComponent implements OnInit {
 
   @Output() sended = new EventEmitter();
 
+  @ViewChild('fileInput')
+  inptFile: ElementRef;
+
   ngOnInit(): void {
   }
 
@@ -52,13 +55,19 @@ export class PublicationComponent implements OnInit {
         response => {
           if (response.publication) {
             // subir archivo
+
+          if (this.filesToUpload && this.filesToUpload.length) {
           this.uploadService.makeFileRequest(this.url + 'upload-image-pub/' + response.publication._id, [], this.filesToUpload, this.token, 'image')
                               .then((result: any) => {
                                 this.publication.file = result.image;
                                 this.status = 'success';
                                 this.publicationForm.reset();
+                                this.inptFile.nativeElement.value = '';
                               });
-
+          } else {
+            this.status = 'success';
+            this.publicationForm.reset();
+          }
           } else {
             this.status = 'error';
           }

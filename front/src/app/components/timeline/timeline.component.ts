@@ -40,6 +40,7 @@ export class TimelineComponent implements OnInit {
   public noMore = false;
   public showImage;
 
+
   ngOnInit(): void {
     this.getPublications(this.page);
   }
@@ -83,7 +84,7 @@ export class TimelineComponent implements OnInit {
     this.getPublications(this.page, true); // el true es para el adding
   }
 
-  refresh(event): void {
+  refresh(event = null): void {
     $('html, body').animate({ scrollTop: $('body').prop('scrollTop') }, 800);
     setTimeout(() => {
       this.getPublications(1); // pagina 1
@@ -96,6 +97,17 @@ export class TimelineComponent implements OnInit {
 
   hideThisImage(id): void {
     this.showImage = 0;
+  }
+
+  deletePublication(id): void {
+    this.publicationService.deletePublication(this.token, id).subscribe(
+      Response => {
+        this.refresh();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }
