@@ -158,7 +158,7 @@ function getUsers(req, res) {
             return res.status(200).send({
                 users,
                 users_following: value.following,
-                users_follow_me: value.following,
+                users_follow_me: value.followed,
                 total,
                 pages: Math.ceil(total/itemsPerPage)
             });   

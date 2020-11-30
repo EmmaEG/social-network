@@ -1,0 +1,39 @@
+.item-user .image-user  {
+    width: 75px;
+    height: 75px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin: 5px;
+}
+
+.item-user .image-user img  {
+    width: 100%;
+} 
+
+.card-body {
+    padding: 0px;
+    margin-left: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: #24292e;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #24292e;
+}
+
+@media (min-width: 767px) { 
+    #sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) { 
+    #sidebar {
+        display: block;
+    }
+}
+

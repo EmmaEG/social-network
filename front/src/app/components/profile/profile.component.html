@@ -25,18 +25,22 @@
             <div class="clear-fix"></div>
             <div class="row stats">
               <div class="label-stats" *ngIf="stats">
+                <a style="text-decoration: none; color: black;" [routerLink]="['/following', user._id, 1]" >
                 <p class="card-text mb-0 label-stats">
                   <i class="fas fa-user-check mr-2"></i>
                   Siguiendo
                 </p>
                 <p class="mb-1">{{ stats.following }}</p>
+                </a>
               </div>
               <div class="label-stats" *ngIf="stats">
+                <a style="text-decoration: none; color: black;" [routerLink]="['/followers', user._id, 1]" >
                 <p class="card-text mb-0 label-stats">
                   <i class="fas fa-users mr-2"></i>
                   Seguidores
                 </p>
                 <p class="mb-1">{{ stats.followed }}</p>
+                </a>
               </div>
               <div class="label-stats" *ngIf="stats">
                 <p class="card-text mb-0 label-stats">
@@ -76,7 +80,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12" *ngIf="user">
+      <div *ngIf="user">
         <app-pubprofile [user]="user._id"></app-pubprofile>
       </div>
     </div>
