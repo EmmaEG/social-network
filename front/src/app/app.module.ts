@@ -6,6 +6,8 @@ import { routing, appRoutingProviders } from './app.routing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MomentModule } from 'angular2-moment';
 
+import { MessagesModule } from './messages/messages.module';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -43,6 +45,7 @@ import { FollowedComponent } from './components/followed/followed.component';
     HttpClientModule,
     ReactiveFormsModule,
     MomentModule,
+    MessagesModule,
     routing
   ],
   providers: [
