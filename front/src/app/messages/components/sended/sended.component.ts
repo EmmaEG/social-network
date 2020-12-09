@@ -25,6 +25,12 @@ export class SendedComponent implements OnInit {
   public status: string;
   public follows;
   public messages: Message[];
+  public page;
+  public pages;
+  public total;
+  public nextPage;
+  public prePage;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -41,14 +47,41 @@ export class SendedComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getMessages();
+    this.actualPage();
   }
 
-  getMessages(): void {
-    this.messageService.getEmitMessages(this.token, 1).subscribe(
+  actualPage(): void {
+    this.route.params.subscribe(params => {
+
+      let page = +params['page']; // con + lo convertimos a un entero
+      this.page = page;
+
+      if (!params['page']) {
+        page = 1;
+      }
+
+      if (!page) {
+        page = 1;
+      } else {
+        this.nextPage = page + 1;
+        this.prePage = page - 1;
+
+        if (this.prePage <= 0) {
+          this.prePage = 1;
+        }
+      }
+      // devolvemos el listado de mensajes
+      this.getMessages(this.token, this.page);
+    });
+  }
+
+  getMessages(token, page): void {
+    this.messageService.getEmitMessages(token, page).subscribe(
       response => {
         if (response.messages) {
-          this.messages = response.messages;
+          this.messages = response.messages;          
+          this.total = response.total;
+          this.pages = response.pages;
         }
       },
       error => {
