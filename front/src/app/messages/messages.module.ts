@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MomentModule } from 'angular2-moment';
+
 
 import { MessagesRoutingModule } from './messages-routing.module';
 
@@ -22,7 +24,8 @@ import { SendedComponent } from './components/sended/sended.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MessagesRoutingModule
+    MessagesRoutingModule,
+    MomentModule
   ],
   exports: [
     MainComponent,
