@@ -45,7 +45,7 @@ function getReceivedMessages(req, res) {
 
     var itemsPerPage = 4;
     // puedo pasar en el populate los campos que quiero recibir
-    Message.find({receiver: userId}).populate('emitter', 'name surname image nick _id').paginate(page, itemsPerPage, (err, messages, total) => {
+    Message.find({receiver: userId}).sort('-created_at').populate('emitter', 'name surname image nick _id').paginate(page, itemsPerPage, (err, messages, total) => {
         if (err) return res.status(500).send({message: 'Error en la petición'});
         if (!messages) return res.status(404).send({message: 'No hay mensajes'});
 
@@ -68,7 +68,7 @@ function getEmmitMessages(req, res) {
 
     var itemsPerPage = 4;
     // puedo pasar en el populate los campos que quiero recibir
-    Message.find({emitter: userId}).populate('emitter receiver', 'name surname image nick _id').paginate(page, itemsPerPage, (err, messages, total) => {
+    Message.find({emitter: userId}).sort('-created_at').populate('emitter receiver', 'name surname image nick _id').paginate(page, itemsPerPage, (err, messages, total) => {
         if (err) return res.status(500).send({message: 'Error en la petición'});
         if (!messages) return res.status(404).send({message: 'No hay mensajes'});
 
