@@ -6,7 +6,7 @@
   <form [formGroup]="messageForm" (ngSubmit)="sendMessage($event)">
     <div class="form-group">
       <label for="receiver">Para:</label>
-      <select class="form-control" *ngIf="follows" formControlName="receiver">
+      <select class="form-control" *ngIf="follows" formControlName="receiver" required>
         <option *ngFor="let follow of follows" value="{{ follow.user._id }}">
           {{
             follow.user.name +
