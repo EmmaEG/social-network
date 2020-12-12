@@ -1,10 +1,10 @@
-<div class="col-lg-10">
-  <h3>{{ title }}</h3>
-  <div class="alert alert-danger" *ngIf="status == 'error'">
+<div class="container">
+<div class="col card">
+  <div class="alert alert-danger mt-1" *ngIf="status == 'error'">
     No has podido enviar el mensaje, intentalo nuevamente.
   </div>
   <form [formGroup]="messageForm" (ngSubmit)="sendMessage($event)">
-    <div class="form-group">
+    <div class="form-group mt-1">
       <label for="receiver">Para:</label>
       <select class="form-control" *ngIf="follows" formControlName="receiver" required>
         <option *ngFor="let follow of follows" value="{{ follow.user._id }}">
@@ -43,4 +43,5 @@
       />
     </div>
   </form>
+</div>
 </div>

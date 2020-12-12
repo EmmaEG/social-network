@@ -1,5 +1,5 @@
-<div class="col-lg-10">
-  <h3>{{ title }}</h3>
+<div class="container">
+<div class="col">
   <!--listado de mensajes recibidos-->
   <div *ngFor="let message of messages" class="item-user">
     <div class="card mb-3" *ngIf="message.emitter">
@@ -18,7 +18,7 @@
             />
           </a>
         </div>
-        <div class="card-body mt-1">
+        <div class="card-body mt-1 pt-0">
           <h5 class="card-title">
             {{ message.emitter.name + " " + message.emitter.surname }}
             &nbsp;-&nbsp;
@@ -48,4 +48,5 @@
       </li>
     </ul>
   </nav>
+</div>
 </div>

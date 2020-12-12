@@ -1,59 +1,62 @@
-  <div class="col-lg-10">
-    <h3>{{ title }}</h3>
-    <!--listado de mensajes enviados-->
-    <div *ngFor="let message of messages" class="item-user">
-      <div class="card mb-3" *ngIf="message.emitter">
-        <div class="row no-gutters">
-          <div class="image-user">
-            <a [routerLink]="['/user-profile', message.emitter]">
-              <img
-                src="{{ url + 'get-image-user/' + message.emitter.image }}"
-                class="card-img"
-                *ngIf="message.emitter.image"
-                />
-              <img
-                src="assets/user.png"
-                class="card-img card-image-default"
-                *ngIf="!message.emitter.image"
-              />
-            </a>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">
-              {{ message.emitter.name + " " + message.emitter.surname }}
-              &nbsp;-&nbsp;
-              <small class="text-muted text-right">
-                {{ message.created_at | amFromUnix | amLocale: "es" | amTimeAgo }}
-              </small>
-              &nbsp;-&nbsp;
-              <small class="text-muted">
-                <a [routerLink]="['/user-profile', message.receiver._id]" 
-                style="text-decoration: none; color: black">
-                Para: {{message.receiver.name + ' ' + message.receiver.surname}}
+<div class="container">
+<div class="col">
+  <!--listado de mensajes enviados-->
+  <div *ngFor="let message of messages" class="item-user">
+    <div class="card mb-3" *ngIf="message.emitter">
+      <div class="row no-gutters">
+        <div class="image-user">
+          <a [routerLink]="['/user-profile', message.emitter]">
+            <img
+              src="{{ url + 'get-image-user/' + message.emitter.image }}"
+              class="card-img"
+              *ngIf="message.emitter.image"
+            />
+            <img
+              src="assets/user.png"
+              class="card-img card-image-default"
+              *ngIf="!message.emitter.image"
+            />
+          </a>
+        </div>
+        <div class="card-body pt-0">
+          <h5 class="card-title">
+            {{ message.emitter.name + " " + message.emitter.surname }}
+            &nbsp;-&nbsp;
+            <small class="text-muted text-right">
+              {{ message.created_at | amFromUnix | amLocale: "es" | amTimeAgo }}
+            </small>
+            &nbsp;-&nbsp;
+            <small class="text-muted">
+              <a
+                [routerLink]="['/user-profile', message.receiver._id]"
+                style="text-decoration: none; color: black"
+              >
+                Para:
+                {{ message.receiver.name + " " + message.receiver.surname }}
               </a>
-              </small>
-            </h5>
-            <div class="message">
-              {{ message.text }}
-            </div>
+            </small>
+          </h5>
+          <div class="message">
+            {{ message.text }}
           </div>
         </div>
       </div>
     </div>
-    
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item" *ngIf="page > 1">
-                <a class="page-link" [routerLink]="['/messages/sended', prePage]"
-                  >Anterior</a
-                >
-              </li>
-              <li class="page-item" *ngIf="pages != page">
-                <a class="page-link" [routerLink]="['/messages/sended', nextPage]"
-                  >Siguiente</a
-                >
-              </li>
-            </ul>
-          </nav>
-          
   </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" *ngIf="page > 1">
+        <a class="page-link" [routerLink]="['/messages/sended', prePage]"
+          >Anterior</a
+        >
+      </li>
+      <li class="page-item" *ngIf="pages != page">
+        <a class="page-link" [routerLink]="['/messages/sended', nextPage]"
+          >Siguiente</a
+        >
+      </li>
+    </ul>
+  </nav>
+</div>
+</div>
