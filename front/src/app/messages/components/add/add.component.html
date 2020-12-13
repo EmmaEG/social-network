@@ -1,47 +1,57 @@
 <div class="container">
-<div class="col card">
-  <div class="alert alert-danger mt-1" *ngIf="status == 'error'">
-    No has podido enviar el mensaje, intentalo nuevamente.
-  </div>
-  <form [formGroup]="messageForm" (ngSubmit)="sendMessage($event)">
-    <div class="form-group mt-1">
-      <label for="receiver">Para:</label>
-      <select class="form-control" *ngIf="follows" formControlName="receiver" required>
-        <option *ngFor="let follow of follows" value="{{ follow.user._id }}">
-          {{
-            follow.user.name +
-              " " +
-              follow.user.surname +
-              " (" +
-              follow.user.nick +
-              ") "
-          }}
-        </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <textarea
-        class="form-control mt-3"
-        formControlName="text"
-        rows="3"
-        [ngClass]="{ 'is-invalid': f.text.touched && f.text.errors }"
-        placeholder="Enviar mensaje"
-      ></textarea>
-      <div *ngIf="f.text.touched && f.text.errors" class="invalid-feedback">
-        <div *ngIf="f.text.errors.required">
-          Debes redactar un mensaje para poder enviar, dede tener como mínimo de
-          10 caracteres y como maximo de 250.
-        </div>
+  <div class="row">
+    <div class="col card">
+      <div class="alert alert-danger mt-1" *ngIf="status == 'error'">
+        No has podido enviar el mensaje, intentalo nuevamente.
       </div>
+      <form [formGroup]="messageForm" (ngSubmit)="sendMessage($event)">
+        <div class="form-group mt-1">
+          <label for="receiver">Para:</label>
+          <select
+            class="form-control"
+            *ngIf="follows"
+            formControlName="receiver"
+            required
+          >
+            <option
+              *ngFor="let follow of follows"
+              value="{{ follow.user._id }}"
+            >
+              {{
+                follow.user.name +
+                  " " +
+                  follow.user.surname +
+                  " (" +
+                  follow.user.nick +
+                  ") "
+              }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea
+            class="form-control mt-3"
+            formControlName="text"
+            rows="3"
+            [ngClass]="{ 'is-invalid': f.text.touched && f.text.errors }"
+            placeholder="Enviar mensaje"
+          ></textarea>
+          <div *ngIf="f.text.touched && f.text.errors" class="invalid-feedback">
+            <div *ngIf="f.text.errors.required">
+              Debes redactar un mensaje para poder enviar, dede tener como
+              mínimo de 10 caracteres y como maximo de 250.
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <input
+            type="submit"
+            value="{{ title }}"
+            class="btn btn-info btn-block mt-2"
+            [disabled]="!messageForm.valid"
+          />
+        </div>
+      </form>
     </div>
-    <div class="form-group mb-3">
-      <input
-        type="submit"
-        value="{{ title }}"
-        class="btn btn-info btn-block mt-2"
-        [disabled]="!messageForm.valid"
-      />
-    </div>
-  </form>
-</div>
+  </div>
 </div>
