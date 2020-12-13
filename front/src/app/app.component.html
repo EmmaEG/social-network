@@ -26,12 +26,12 @@
                 </li>                
             </ul>
             <ul class="navbar-nav text-center ml-auto">
-                <li class="avatar mr-3">
+                <li id="avatar" class="avatar mr-3">
                 <img src="{{ url + 'get-image-user/' + identity.image}}" *ngIf="identity.image">
                 </li>
                 <li>
                     <div class="dropleft">
-                        <button class="btn btn-outline-light dropleft-toggle" type="button" id="dropdownMenu2"
+                        <button class="btn btn-link dropleft-toggle" type="button" id="dropdownMenu2"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{identity.nick}}
                         </button>

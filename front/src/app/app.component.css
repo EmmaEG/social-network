@@ -12,3 +12,14 @@
 .avatar img {
     width: inherit;
 }
+.btn {
+    color: white;
+    text-decoration: none;
+}
+
+@media (max-width: 767px) { 
+    #avatar {
+        display: none;
+    }
+
+}

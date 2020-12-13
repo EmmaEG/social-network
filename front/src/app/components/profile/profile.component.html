@@ -1,7 +1,12 @@
 <div class="container">
+  <div class="row mt-4">
+    <div class="col">
+      <h2 class="h2-title">{{ title }}</h2>
+    </div>
+  </div>
   <div class="row">
     <div class="col-lg-7 col-md-6 mb-4">
-      <div class="card p-2 mt-3 mb-3" *ngIf="user">
+      <div class="card p-2 mb-3" *ngIf="user">
         <div class="row no-gutters">
           <div class="image-user float-left">
             <img
@@ -84,7 +89,7 @@
         <app-pubprofile [user]="user._id"></app-pubprofile>
       </div>
     </div>
-    <div class="col-lg-5 col-md-6 mt-3 mb-4 d-none d-md-block d-l-block">
+    <div class="col-lg-5 col-md-6 mb-4 d-none d-md-block d-l-block">
       <app-sidebar></app-sidebar>
       <app-publication></app-publication>
     </div>
