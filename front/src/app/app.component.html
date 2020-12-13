@@ -35,7 +35,7 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{identity.nick}}
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <div class="dropdown-menu text-center" aria-labelledby="dropdownMenu2">
                             <a class="dropdown-item" type="button" [routerLink]="['/user-profile', identity._id]">Mi perfil</a>
                             <a class="dropdown-item" type="button" [routerLink]="['/profile']">Mis datos</a>
                             <a class="dropdown-item" type="button" (click)="logout()">Cerrar sesión</a>
