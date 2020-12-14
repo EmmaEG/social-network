@@ -4,14 +4,13 @@
     border-radius: 100px;
     overflow: hidden;
     margin: 5px;
+    margin-bottom: -15px;
 }
 
 .item-publication .image-user img  {
     width: 100%;
 } 
 
-.card-body {
-    padding: 0px;
-    margin-left: 15px;
+.card {
+    border-radius: 10px;
 }
-

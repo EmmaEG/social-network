@@ -51,7 +51,7 @@ export class AddComponent implements OnInit {
   private buildForm(): void {
     this.messageForm = this.formBuilder.group({
       _id: [''],
-      text: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
+      text: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(800)]],
       viewed: [''],
       created_at: [''],
       emmiter: [this.identity._id],

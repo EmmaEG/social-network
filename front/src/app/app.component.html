@@ -10,7 +10,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbar" *ngIf="identity">
-            <ul class="navbar-nav text-center ml-3">
+            <ul class="navbar-nav text-center p-1">
                 <!--ml-auto es margin left automatic todo lo que pueda-->
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/home']">Inicio</a>
@@ -26,8 +26,9 @@
                 </li>                
             </ul>
             <ul class="navbar-nav text-center ml-auto">
-                <li id="avatar" class="avatar mr-3">
+                <li id="avatar" class="avatar mr-2">
                 <img src="{{ url + 'get-image-user/' + identity.image}}" *ngIf="identity.image">
+                <img src="assets/user.png" *ngIf="!identity.image">
                 </li>
                 <li>
                     <div class="dropleft">

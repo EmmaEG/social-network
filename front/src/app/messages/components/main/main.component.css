@@ -1,4 +1,9 @@
 .active {
     background-color: #24292e;
     color: white;
+    border-radius: 5px;
+}
+
+.card {
+    border-radius: 10px;
 }
