@@ -36,8 +36,13 @@ export class ProfileComponent implements OnInit {
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
     this.url = GLOBAL.url;
+    this.stats = this.userService.getStats();
     this.followed = false;
     this.following = false;
+    // para poder recargar OnInit
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
   }
 
   ngOnInit(): void {
