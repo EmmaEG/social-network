@@ -22,6 +22,8 @@ import { PubprofileComponent } from './components/pubprofile/pubprofile.componen
 import { FollowingComponent } from './components/following/following.component';
 import { FollowedComponent } from './components/followed/followed.component';
 
+import { UserService } from './services/user.service';
+import { UserGuard } from './services/user.guard';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { FollowedComponent } from './components/followed/followed.component';
     routing
   ],
   providers: [
-    appRoutingProviders
+    appRoutingProviders,
+    UserService,
+    UserGuard
   ],
   bootstrap: [AppComponent]
 })

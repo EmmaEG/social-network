@@ -28,6 +28,7 @@ export class SidebarComponent implements OnInit {
     this.url = GLOBAL.url;
   }
 
+  
   ngOnInit(): void {
   }
 
