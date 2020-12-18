@@ -1,0 +1,24 @@
+.jumbotron {
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    min-width: 100%;
+    position: fixed;
+}
+
+.jumbotron img {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+@media (min-width: 767px) { 
+    .text-contain {
+        margin-top: 25%;
+    }
+
+}
+
