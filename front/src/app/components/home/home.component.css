@@ -1,24 +1,14 @@
 .jumbotron {
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    min-height: 100vh;
-    min-width: 100%;
-    position: fixed;
-}
-
-.jumbotron img {
-    margin: 0;
+    background-color: white;
+    height: 100vh;
     width: 100%;
-    min-height: 100vh;
+    position: fixed;
+    padding-top: 10%;
 }
 
-
-@media (min-width: 767px) { 
-    .text-contain {
-        margin-top: 25%;
+@media (max-width: 767px) { 
+    .jumbotron {
+        padding-top: 35%;        
     }
 
 }
-
