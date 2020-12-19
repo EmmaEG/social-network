@@ -21,13 +21,26 @@
 </div>
 -->
 <div class="jumbotron jumbotron-fluid">
-    <div class="container text-center">
-        <h1 class="title" style="font-weight: bolder;">
-        La mejor comunidad <br> de lectores en español.</h1>
-        <p class="lead">
-            Comparte con los demas reseñas, frases y lo que cada libro te dejó :)
-        </p>
-        <hr class="my-4">
-        <p>¿Cuál será la proxima historia que vivirás?</p>
-    </div>
+  <div class="container text-center" *ngIf="!identity">
+    <h1 class="title" style="font-weight: bolder">
+      La mejor comunidad <br />
+      de lectores en español.
+    </h1>
+    <p class="lead">
+      Comparte con los demas reseñas, frases y lo que cada libro te dejó :)
+    </p>
+    <hr class="my-4" />
+    <p>¿Cuál será la proxima historia que vivirás?</p>
   </div>
+
+  <div class="container text-center" *ngIf="identity">
+    <h1 class="title" style="font-weight: bolder">
+      Hola {{ identity.nick }} <br> bienvenid@ a la comunidad <br/>
+    </h1>
+    <p class="lead">
+      Comparte con los demas reseñas, frases y lo que cada libro te dejó :)
+    </p>
+    <hr class="my-4" />
+    <p>¿Cuál será la proxima historia que vivirás?</p>
+  </div>
+</div>

@@ -6,9 +6,9 @@
     padding-top: 10%;
 }
 
-@media (max-width: 767px) { 
+@media (max-width: 500px) { 
     .jumbotron {
-        padding-top: 35%;        
+        padding-top: 20%;        
     }
 
 }
